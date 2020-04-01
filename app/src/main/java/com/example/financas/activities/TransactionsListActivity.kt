@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_lista_transacoes.view.*
 import java.math.BigDecimal
 import java.util.Calendar
 
-class TransactionsList: AppCompatActivity() {
+class TransactionsListActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

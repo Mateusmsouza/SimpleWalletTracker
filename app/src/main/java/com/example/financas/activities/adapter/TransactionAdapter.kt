@@ -20,27 +20,16 @@ class TransactionAdapter(transactions: List<Transaction>,
 
     private val transactions = transactions
     private val context = context
-    private val max_length_category = 14;
+    private val maxLengthTransactionDescription = 14;
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val viewCriada = LayoutInflater.from(context).inflate(R.layout.transacao_item, parent, false)
-
+        val viewCreated = LayoutInflater.from(context).inflate(R.layout.transacao_item, parent, false)
         val transaction: Transaction = transactions[position]
 
-        if (transaction.type == TransacionType.INCOME){
-            viewCriada.transacao_icone.setBackgroundResource(R.drawable.icone_transacao_item_receita)
-            viewCriada.transacao_valor
-                .setTextColor(ContextCompat.getColor(context, R.color.receita))
-        }
-        else{
-            viewCriada.transacao_icone.setBackgroundResource(R.drawable.icone_transacao_item_despesa)
-            viewCriada.transacao_valor
-                .setTextColor(ContextCompat.getColor(context, R.color.despesa))
-        }
-        viewCriada.transacao_valor.text = transaction.valor.formatBrazilianCurrency()
-        viewCriada.transacao_categoria.text = transaction.category.sliceIfHasMoreSizeThan(max_length_category)
-        viewCriada.transacao_data.text = transaction.data.formatToBrazilianFormat()
-        return viewCriada
+        applyColor(transaction, viewCreated)
+        populateViewInformation(transaction, viewCreated)
+
+        return viewCreated
     }
 
     override fun getItem(position: Int): Transaction {
@@ -53,6 +42,31 @@ class TransactionAdapter(transactions: List<Transaction>,
 
     override fun getCount(): Int {
         return transactions.count()
+    }
+
+    private fun applyColor(transaction: Transaction,
+                           viewCreated: View){
+        var colorNumber = 0
+        var iconNumber = 0
+
+        if (transaction.type == TransacionType.INCOME){
+            colorNumber = ContextCompat.getColor(context, R.color.receita)
+            iconNumber = R.drawable.icone_transacao_item_receita
+        }
+        else{
+            colorNumber = ContextCompat.getColor(context, R.color.despesa)
+            iconNumber = R.drawable.icone_transacao_item_despesa
+        }
+
+        viewCreated.transacao_icone.setBackgroundResource(iconNumber)
+        viewCreated.transacao_valor.setTextColor(colorNumber)
+    }
+
+    private fun populateViewInformation(transaction: Transaction,
+                                        viewCreated: View){
+        viewCreated.transacao_valor.text = transaction.valor.formatBrazilianCurrency()
+        viewCreated.transacao_categoria.text = transaction.category.sliceIfHasMoreSizeThan(maxLengthTransactionDescription)
+        viewCreated.transacao_data.text = transaction.data.formatToBrazilianFormat()
     }
 
 }
