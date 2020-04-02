@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import androidx.core.content.ContextCompat
 import com.example.financas.R
-import com.example.financas.activities.Extension.formatBrazilianCurrency
-import com.example.financas.activities.Extension.formatToBrazilianFormat
-import com.example.financas.activities.Extension.sliceIfHasMoreSizeThan
+import com.example.financas.activities.extension.formatBrazilianCurrency
+import com.example.financas.activities.extension.formatToBrazilianFormat
+import com.example.financas.activities.extension.sliceIfHasMoreSizeThan
 import com.example.financas.activities.model.TransacionType
 import com.example.financas.activities.model.Transaction
 import kotlinx.android.synthetic.main.transacao_item.view.*

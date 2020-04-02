@@ -1,18 +1,14 @@
 package com.example.financas.activities
 
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.example.financas.R
-import com.example.financas.activities.Extension.formatBrazilianCurrency
 import com.example.financas.activities.adapter.TransactionAdapter
 import com.example.financas.activities.model.TransacionType
 import com.example.financas.activities.model.Transaction
+import com.example.financas.activities.view.ResumeView
 import kotlinx.android.synthetic.main.activity_lista_transacoes.*
-import kotlinx.android.synthetic.main.activity_lista_transacoes.view.*
-import kotlinx.android.synthetic.main.resumo_card.*
 import java.math.BigDecimal
-import java.util.Calendar
 
 class TransactionsListActivity: AppCompatActivity() {
 
@@ -26,19 +22,17 @@ class TransactionsListActivity: AppCompatActivity() {
         )
 
         lista_transacoes_listview.adapter = TransactionAdapter(transactionsList, this)
+        populateResume(transactionsList)
 
-        resumo_card_receita.text = calculateIncome(transactionsList).formatBrazilianCurrency()
     }
 
-    private fun calculateIncome(transactions: List<Transaction>): BigDecimal{
-        var totalIncome = BigDecimal.ZERO
+    private fun populateResume(transactionsList: List<Transaction>) {
+        val resumeView = ResumeView(window.decorView, transactionsList)
 
-        for (transaction in transactions){
-            if (transaction.type == TransacionType.INCOME){
-                totalIncome = totalIncome.plus(transaction.valor)
-            }
-        }
-
-        return totalIncome
+        resumeView.getIncome()
+        resumeView.getOutcome()
+        resumeView.getTotal()
     }
+
+
 }
