@@ -1,4 +1,4 @@
-package com.example.financas.activities.Extension
+package com.example.financas.activities.extension
 
 import java.math.BigDecimal
 import java.text.DecimalFormat
@@ -9,4 +9,5 @@ fun BigDecimal.formatBrazilianCurrency() : String {
         .getCurrencyInstance(Locale("pt", "br"))
         .format(this)
         .replace("R$", "R$ ")
+        .replace("-R$", "R$ -")
 }
