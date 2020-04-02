@@ -1,4 +1,4 @@
-package com.example.financas.activities.Extension
+package com.example.financas.activities.extension
 
 import kotlin.String as string
 
